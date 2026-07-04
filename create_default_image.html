@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Default Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Default Profile Image</h2>
+        <div class="avatar" id="avatar">U</div>
+        <p>Click the button below to download the default image</p>
+        <button class="btn" onclick="downloadImage()">Download default.png</button>
+        <br><br>
+        <p style="font-size: 12px; color: #666;">Place this file in: assets/images/default.png</p>
+    </div>
+
+    <script>
+        function downloadImage() {
+            // Create a canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+
+            // Draw background circle
+            const gradient = ctx.createLinearGradient(0, 0, 200, 200);
+            gradient.addColorStop(0, '#3498db');
+            gradient.addColorStop(1, '#2980b9');
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(100, 100, 100, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw user icon (simple person silhouette)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            
+            // Head
+            ctx.beginPath();
+            ctx.arc(100, 70, 35, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Body
+            ctx.beginPath();
+            ctx.ellipse(100, 150, 50, 35, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Text
+            ctx.fillStyle = '#3498db';
+            ctx.font = 'bold 60px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('U', 100, 100);
+
+            // Download
+            const link = document.createElement('a');
+            link.download = 'default.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>
